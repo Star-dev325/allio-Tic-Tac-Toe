@@ -37,6 +37,7 @@ function App() {
 
   const handleSquareClick = (i) => {
     if (boardState[i] || winner) {
+      if (winner) alert('Game Over!\nRestart!');
       return;
     }
     const stateTemp = boardState;
