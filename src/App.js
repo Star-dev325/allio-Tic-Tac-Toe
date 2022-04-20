@@ -1,25 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 
+import SquareRow, {
+  Backinterface,
+  Board,
+  StatePad,
+  Square,
+  ResetButton,
+  ButtonContainer
+} from './Styles';
+
 function App() {
+  const [boardState, setBoardState] = useState(Array(9).fill(null));
+  const [next, setNext] = useState('X');
+  const [winner, setWinner] = useState(null);
+  const renderSquare = (i) => <Square
+    key={i}
+    onClick={() => {}}>
+    {boardState[i]}
+  </Square>;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Backinterface>
+      <StatePad>
+        <h2>Next: {next}</h2>
+        <h2>Winner: {winner}</h2>
+      </StatePad>
+      <Board>
+        {[0, 1, 2].map((rIndex) => <SquareRow key={rIndex}>
+          {[0, 1, 2].map((index) => renderSquare(rIndex * 3 + index))}
+        </SquareRow>)}
+      </Board>
+      <ButtonContainer>
+        <ResetButton>Reset Game!</ResetButton>
+      </ButtonContainer>
+    </Backinterface>
   );
 }
 
